@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ToasterCard } from "./ui/ToasterCard";
+import { Overlay } from "./ui/Overlay";
+import { flushSync } from "react-dom";
 import "./App.css";
 
 function App() {
@@ -12,19 +14,36 @@ function App() {
       <div className="card">
         <button
           onClick={() =>
-            setItems((prevItems) =>
-              prevItems.slice().concat(Math.random().toString(36).slice(2))
+            document.startViewTransition(() =>
+              flushSync(() =>
+                setItems((prevItems) =>
+                  prevItems.concat(
+                    "_" +
+                      (prevItems.length + 1).toString() +
+                      "_" +
+                      Math.random().toString(36).slice(2)
+                  )
+                )
+              )
             )
           }
         >
           Add Toasterino
         </button>
+
+        <button onClick={() => setItems([])}>Reset</button>
       </div>
 
-      <div className="space-y-4">
-        {items.map((item) => (
-          <ToasterCard key={item}>{item}</ToasterCard>
-        ))}
+      <div className="">
+        {items
+          .slice()
+          .reverse()
+          .map((item, index) => (
+            <Overlay key={item} item={item} index={index}>
+              <ToasterCard>{item}</ToasterCard>
+            </Overlay>
+          ))
+          .reverse()}
       </div>
     </>
   );
