@@ -3,29 +3,18 @@
   position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
 
   --index: 0;
   transform: translateX(-50%) translateY(calc(var(--index) * -30px))
-    scale(pow(0.9, calc(var(--index) * 2)));
-  opacity: calc(1 - var(--index) * 0.2);
+    scale(pow(0.9, var(--index)));
 
-  /* Enter Animation     */
-  animation-duration: 0.2s;
-  animation-name: slideup;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  transition-property: transform, opacity;
 }
 
-@keyframes slideup {
-  from {
-    transform: translateX(-50%) translateY(100%);
-  }
-  to {
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-/* @starting-style {
+@starting-style {
   .overlay {
     transform: translateX(-50%) translateY(100%);
   }
-} */
+}

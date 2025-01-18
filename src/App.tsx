@@ -40,7 +40,20 @@ function App() {
           .reverse()
           .map((item, index) => (
             <Overlay key={item} item={item} index={index}>
-              <ToasterCard>{item}</ToasterCard>
+              <ToasterCard>
+                {item}
+
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4"
+                  onClick={() =>
+                    setItems((prevItems) =>
+                      prevItems.filter((prevItem) => prevItem !== item)
+                    )
+                  }
+                >
+                  X
+                </button>
+              </ToasterCard>
             </Overlay>
           ))
           .reverse()}
