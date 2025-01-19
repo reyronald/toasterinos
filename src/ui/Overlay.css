@@ -1,8 +1,15 @@
 .overlay-container {
+  --gap: 16px;
+}
+
+@starting-style {
+  .overlay {
+    transform: translateX(-50%) translateY(100%);
+  }
 }
 
 .overlay {
-  margin: 16px 0;
+  margin: var(--gap) 0;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -16,12 +23,16 @@
   transition-property: transform, opacity;
 }
 
-@starting-style {
-  .overlay {
-    transform: translateX(-50%) translateY(100%);
-  }
+.overlay:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  height: var(--gap);
+  width: 100%;
 }
 
 .overlay-container:hover .overlay {
-  transform: translateX(-50%) translateY(calc(var(--index) * (-100% - 16px)));
+  transform: translateX(-50%)
+    translateY(calc(var(--index) * (-100% - var(--gap))));
 }

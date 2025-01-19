@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Portal } from "@reach/portal";
 import { ToasterCard } from "./ui/ToasterCard";
 import { Overlay } from "./ui/Overlay";
 import { svt } from "./svt";
-
-import "./App.css";
 
 function App() {
   const [items, setItems] = useState<
@@ -14,27 +12,61 @@ function App() {
     }>
   >([]);
 
+  const counter = useRef(0);
+
   return (
-    <>
+    <main className="space-y-8">
       <h1>Toasterinos</h1>
 
-      <div className="card">
+      <h2>
+        <a href="https://github.com/reyronald/toasterinos">
+          https://github.com/reyronald/toasterinos
+        </a>
+      </h2>
+
+      <div className="space-x-4">
         <button
           onClick={() =>
-            svt(() =>
+            svt(() => {
+              counter.current++;
               setItems((prevItems) =>
                 prevItems.concat({
                   id: "_" + Math.random().toString(36).slice(2),
-                  message: `${prevItems.length + 1}) This is a notification`,
+                  message: `${counter.current}) This is a notification`,
                 })
-              )
-            )
+              );
+            })
           }
         >
           Add Toasterino
         </button>
 
-        <button onClick={() => svt(() => setItems([]))}>Reset</button>
+        <button
+          onClick={() =>
+            svt(() => {
+              counter.current = 0;
+              setItems([]);
+            })
+          }
+        >
+          Reset
+        </button>
+      </div>
+
+      <div className="space-y-4">
+        <p>
+          Inspired by <a href="https://sonner.emilkowal.ski/">Sonner</a>.
+        </p>
+
+        <p>
+          Animations implemented purely with CSS and the View Transitions API.
+        </p>
+
+        <p>No dependencies.</p>
+
+        <p>
+          - <a href="https://github.com/reyronald">Ronald Rey (@reyronald)</a>
+        </p>
       </div>
 
       <Portal type="toasterino-portal">
@@ -79,7 +111,7 @@ function App() {
             .reverse()}
         </div>
       </Portal>
-    </>
+    </main>
   );
 }
 
