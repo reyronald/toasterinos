@@ -7,9 +7,9 @@ interface CustomCSSProperties extends CSSProperties {
 }
 
 export function Overlay(
-  props: PropsWithChildren<{ item: string; index: number }>
+  props: PropsWithChildren<{ id: string; index: number }>
 ) {
-  const { item, index, children } = props;
+  const { id, index, children } = props;
 
   return (
     <div
@@ -17,7 +17,7 @@ export function Overlay(
       style={
         {
           "--index": index,
-          viewTransitionName: `_${item}`,
+          viewTransitionName: id,
           opacity: index > 2 ? 0 : 1 - index * 0.1,
         } as CustomCSSProperties
       }

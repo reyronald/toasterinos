@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 export function ToasterCard(props: PropsWithChildren) {
   return (
-    <div className="bg-slate-500 shadow-md rounded-lg p-4 text-3xl border-2 border-red-500">
+    <div className="bg-black shadow-md rounded-lg px-8 py-4 text-3xl border-2 border-slate-400 flex justify-around gap-8 items-center">
       {props.children}
     </div>
   );
