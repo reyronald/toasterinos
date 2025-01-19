@@ -1,5 +1,8 @@
+.overlay-container {
+}
+
 .overlay {
-  margin: 16px 24px;
+  margin: 16px 0;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -17,4 +20,8 @@
   .overlay {
     transform: translateX(-50%) translateY(100%);
   }
+}
+
+.overlay-container:hover .overlay {
+  transform: translateX(-50%) translateY(calc(var(--index) * (-100% - 16px)));
 }

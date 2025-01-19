@@ -18,7 +18,7 @@ export function Overlay(
         {
           "--index": index,
           viewTransitionName: id,
-          opacity: index > 2 ? 0 : 1 - index * 0.1,
+          opacity: index > 2 ? 0 : 1,
         } as CustomCSSProperties
       }
     >

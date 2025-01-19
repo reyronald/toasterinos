@@ -34,11 +34,11 @@ function App() {
           Add Toasterino
         </button>
 
-        <button onClick={() => setItems([])}>Reset</button>
+        <button onClick={() => svt(() => setItems([]))}>Reset</button>
       </div>
 
       <Portal type="toasterino-portal">
-        <div className="">
+        <div className="overlay-container">
           {items
             .slice()
             .reverse()
