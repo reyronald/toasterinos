@@ -1,5 +1,11 @@
 .overlay-container {
   --gap: 16px;
+
+  outline: 5px solid red;
+
+  &:hover {
+    outline-color: blue;
+  }
 }
 
 @starting-style {
@@ -18,6 +24,9 @@
   transform: translateX(-50%) translateY(calc(var(--index) * -30px))
     scale(pow(0.9, var(--index)));
 
+  --opacity: 1;
+  opacity: var(--opacity);
+
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
   transition-property: transform, opacity;
@@ -35,4 +44,5 @@
 .overlay-container:hover .overlay {
   transform: translateX(-50%)
     translateY(calc(var(--index) * (-100% - var(--gap))));
+  opacity: 1;
 }

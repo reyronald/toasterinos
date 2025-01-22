@@ -4,6 +4,7 @@ import "./Overlay.css";
 
 interface CustomCSSProperties extends CSSProperties {
   "--index": number;
+  "--opacity": number;
 }
 
 export function Overlay(
@@ -17,8 +18,8 @@ export function Overlay(
       style={
         {
           "--index": index,
+          "--opacity": index > 2 ? 0 : 1,
           viewTransitionName: id,
-          opacity: index > 2 ? 0 : 1,
         } as CustomCSSProperties
       }
     >
