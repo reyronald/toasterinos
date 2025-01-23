@@ -14,6 +14,8 @@ function App() {
 
   const counter = useRef(0);
 
+  const elRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <main className="space-y-8">
       <h1>Toasterinos</h1>
@@ -69,48 +71,56 @@ function App() {
         </p>
       </div>
 
-      <Portal type="toasterino-portal">
-        <div className="overlay-container">
-          {items
-            .slice()
-            .reverse()
-            .map((item, index) => (
-              <Overlay key={item.id} id={item.id} index={index}>
-                <ToasterCard>
-                  <span>{item.message}</span>
+      {items.length > 0 && (
+        <Portal type="toasterino-portal">
+          <div ref={elRef} className="overlay-container">
+            {items
+              .slice()
+              .reverse()
+              .map((item, index) => (
+                <Overlay key={item.id} id={item.id} index={index}>
+                  <ToasterCard>
+                    <span>{item.message}</span>
 
-                  <button
-                    className="bg-white hover:bg-slate-200 text-black font-bold p-2 rounded ml-4"
-                    aria-label="Close"
-                    onClick={() =>
-                      svt(() =>
-                        setItems((prevItems) =>
-                          prevItems.filter((prevItem) => prevItem !== item)
-                        )
-                      )
-                    }
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
+                    <button
+                      className="bg-white hover:bg-slate-200 text-black font-bold p-2 rounded ml-4"
+                      aria-label="Close"
+                      onClick={async () => {
+                        elRef.current?.setAttribute("data-removing", "true");
+
+                        const viewTransition = svt(() =>
+                          setItems((prevItems) =>
+                            prevItems.filter((prevItem) => prevItem !== item)
+                          )
+                        );
+
+                        await viewTransition.finished;
+
+                        elRef.current?.removeAttribute("data-removing");
+                      }}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </ToasterCard>
-              </Overlay>
-            ))
-            .reverse()}
-        </div>
-      </Portal>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </ToasterCard>
+                </Overlay>
+              ))
+              .reverse()}
+          </div>
+        </Portal>
+      )}
     </main>
   );
 }

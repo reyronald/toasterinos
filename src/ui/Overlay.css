@@ -1,17 +1,5 @@
 .overlay-container {
   --gap: 16px;
-
-  outline: 5px solid red;
-
-  &:hover {
-    outline-color: blue;
-  }
-}
-
-@starting-style {
-  .overlay {
-    transform: translateX(-50%) translateY(100%);
-  }
 }
 
 .overlay {
@@ -41,7 +29,9 @@
   width: 100%;
 }
 
-.overlay-container:hover .overlay {
+.overlay-container:hover .overlay,
+/* Because https://github.com/w3c/csswg-drafts/issues/9586 */
+.overlay-container[data-removing] .overlay {
   transform: translateX(-50%)
     translateY(calc(var(--index) * (-100% - var(--gap))));
   opacity: 1;
